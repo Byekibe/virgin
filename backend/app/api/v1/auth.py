@@ -36,7 +36,7 @@ def token_required(f):
     return decorated
 
 # Auth endpoints
-@api_v1_bp.route("/auth/register", methods=["POST"])
+@api_v1_bp.route("/auth/register", methods=["POST"], endpoint="register_user")
 def register():
     """Register a new user."""
     try:
@@ -60,7 +60,7 @@ def register():
     except Exception as e:
         return jsonify({"status": "error", "message": str(e)}), 500
 
-@api_v1_bp.route("/auth/login", methods=["POST"])
+@api_v1_bp.route("/auth/login", methods=["POST"], endpoint="login_user")
 def login():
     """Login a user."""
     try:
@@ -83,7 +83,7 @@ def login():
     except Exception as e:
         return jsonify({"status": "error", "message": str(e)}), 500
 
-@api_v1_bp.route("/auth/refresh", methods=["POST"])
+@api_v1_bp.route("/auth/refresh", methods=["POST"], endpoint="refresh_token")
 def refresh():
     """Refresh access token."""
     try:
@@ -101,7 +101,7 @@ def refresh():
     except Exception as e:
         return jsonify({"status": "error", "message": str(e)}), 500
 
-@api_v1_bp.route("/auth/forgot-password", methods=["POST"])
+@api_v1_bp.route("/auth/forgot-password", methods=["POST"], endpoint="forgot_password")
 def forgot_password():
     """Initiate forgot password process."""
     try:
@@ -119,7 +119,7 @@ def forgot_password():
     except Exception as e:
         return jsonify({"status": "error", "message": str(e)}), 500
 
-@api_v1_bp.route("/auth/reset-password", methods=["POST"])
+@api_v1_bp.route("/auth/reset-password", methods=["POST"], endpoint="reset_password")
 def reset_password():
     """Reset password using reset token."""
     try:
@@ -142,7 +142,7 @@ def reset_password():
     except Exception as e:
         return jsonify({"status": "error", "message": str(e)}), 500
 
-@api_v1_bp.route("/auth/reset-password/<token>", methods=["GET"])
+@api_v1_bp.route("/auth/reset-password/<token>", methods=["GET"], endpoint="reset_password_form")
 def reset_password_form(token):
     """Render reset password form."""
     # This route is for handling the link in the email
@@ -162,7 +162,7 @@ def reset_password_form(token):
         "reset_url": f"{frontend_url}/reset-password?token={token}"
     }), 200
 
-@api_v1_bp.route("/auth/logout", methods=["POST"])
+@api_v1_bp.route("/auth/logout", methods=["POST"], endpoint="logout_user")
 @token_required
 def logout():
     """Logout a user by revoking their token."""
@@ -178,7 +178,7 @@ def logout():
     return jsonify(response), status_code
 
 # Protected route example
-@api_v1_bp.route("/auth/me", methods=["GET"])
+@api_v1_bp.route("/auth/me", methods=["GET"], endpoint="get_me")
 @token_required
 def get_me():
     """Get current user info."""
