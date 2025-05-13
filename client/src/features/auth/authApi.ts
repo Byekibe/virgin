@@ -1,50 +1,15 @@
 // authApi.ts
 import { createApi } from '@reduxjs/toolkit/query/react';
 import { baseQueryWithReauth } from '@/utils/utils';
-import { User } from '@/types/authTypes';
+import { 
+  User, ApiResponse, AuthResponse, 
+  RegisterRequest, LoginRequest, 
+  RefreshTokenRequest, ForgotPasswordRequest,
+  ResetPasswordRequest, ResetLinkResponse
+} from '@/types/authTypes';
 
 // Define types for request and response objects
-export interface RegisterRequest {
-  username: string;
-  email: string;
-  password: string;
-}
 
-export interface LoginRequest {
-  email: string;
-  password: string;
-}
-
-export interface ResetPasswordRequest {
-  reset_token: string;
-  new_password: string;
-}
-
-export interface ApiResponse<T> {
-  status: string;
-  message?: string;
-  data?: T;
-}
-
-export interface AuthResponse {
-  user: User;
-  access_token: string;
-  refresh_token: string;
-}
-
-export interface RefreshTokenRequest {
-  refresh_token: string;
-}
-
-export interface ForgotPasswordRequest {
-  email: string;
-}
-
-export interface ResetLinkResponse {
-  status: string;
-  message: string;
-  reset_url: string;
-}
 
 export const authApi = createApi({
   reducerPath: 'authApi',

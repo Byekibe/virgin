@@ -45,3 +45,45 @@ export interface AuthResponse {
   access_token: string;
   refresh_token: string;
 }
+
+export interface RegisterRequest {
+  username: string;
+  email: string;
+  password: string;
+}
+
+export interface LoginRequest {
+  email: string;
+  password: string;
+}
+
+export interface ResetPasswordRequest {
+  reset_token: string;
+  new_password: string;
+}
+
+export interface ApiResponse<T> {
+  status: string;
+  message?: string;
+  data?: T;
+}
+
+export interface AuthResponse {
+  user: User;
+  access_token: string;
+  refresh_token: string;
+}
+
+export interface RefreshTokenRequest {
+  refresh_token: string;
+}
+
+export interface ForgotPasswordRequest {
+  email: string;
+}
+
+export interface ResetLinkResponse {
+  status: string;
+  message: string;
+  reset_url: string;
+}

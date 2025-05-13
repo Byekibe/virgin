@@ -3,6 +3,11 @@ import { authApi } from '@/features/auth/authApi'
 import authReducer from '@/features/auth/authSlice'
 import { tokenApi } from '@/features/token/tokenApi'
 import { setupListeners } from '@reduxjs/toolkit/query'
+import {roleApi} from "@/features/roles/rolesApi"
+import {userApi} from "@/features/users/userApi"
+import { permissionApi } from "@/features/permissions/permissions"
+import { userRoleApi } from "@/features/userRoles/userRolesApi"
+import { rolePermissionApi } from '@/features/rolePermissions/rolePermissionsApi'
 // ...
 
 export const store = configureStore({
@@ -10,12 +15,22 @@ export const store = configureStore({
     auth: authReducer,
     [authApi.reducerPath]: authApi.reducer,
     [tokenApi.reducerPath]: tokenApi.reducer,
+    [roleApi.reducerPath]: roleApi.reducer,
+    [userApi.reducerPath]: userApi.reducer,
+    [userRoleApi.reducerPath]: userRoleApi.reducer,
+    [permissionApi.reducerPath]: permissionApi.reducer,
+    [rolePermissionApi.reducerPath]: rolePermissionApi.reducer,
   },
 
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(
       authApi.middleware, 
-      tokenApi.middleware
+      tokenApi.middleware,
+      roleApi.middleware,
+      userApi.middleware,
+      permissionApi.middleware,
+      userRoleApi.middleware,
+      rolePermissionApi.middleware
     ),
 })
 
